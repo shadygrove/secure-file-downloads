@@ -1,0 +1,38 @@
+@import "./mat-palette.scss";
+
+$theme-warn: mat-palette($mat-warn, main, lighter, darker);
+
+$theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
+
+// Theme Init
+@include angular-material-theme($theme);
+
+// Update the theme object with a success palette
+// that can be used in custom components accessible via mat-color mixin
+$md-malabar-green: (
+  main: #66d495,
+  lighter: #d1f2df,
+  darker: #49c378,
+  200: #66d495,
+  // For slide toggle,
+    contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
+);
+$success: mat-palette($md-malabar-green, main, lighter, darker);
+$theme: map-merge(
+  $theme,
+  (
+    success: $success
+  )
+);
+
+// Import customizations
+@import "./custom/mat-snackbar.scss";
+@include tc-snackbar-theme($theme);
+
+@import "./custom/mat-dual-list.scss";
+@include tc-dual-list-theme($theme);

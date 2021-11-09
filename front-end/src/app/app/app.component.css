@@ -1,0 +1,4 @@
+.menu-spacer {
+  /* flex: Three values: flex-grow | flex-shrink | flex-basis */
+  flex: 1 1 auto;
+}

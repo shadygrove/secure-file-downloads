@@ -1,0 +1,11 @@
+<h1>File Download</h1>
+
+<mat-slide-toggle
+    [(ngModel)]="enableAuth"
+    (ngModelChange)="toggleChanged($event)">
+Enable Auth Intercept {{enableAuth}}
+</mat-slide-toggle>
+<br /><br />
+<hr />
+<br /><br />
+<router-outlet></router-outlet>

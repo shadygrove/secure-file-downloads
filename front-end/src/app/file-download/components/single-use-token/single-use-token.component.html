@@ -1,0 +1,29 @@
+<p>single-use-token works!</p>
+
+
+<p>
+    <button mat-stroked-button type="button" (click)="getToken()">Get Token</button>
+</p>
+
+<pre>
+    {{ downloadToken | json }}
+</pre>
+
+<pre>
+    {{ error | json }}
+</pre>
+
+<h3>Download via Link</h3>
+<p>
+    <a *ngIf="!!downloadToken" [href]="tokenDownloadUrl" [disabled]="downloadToken" target="_blank">Download With token</a>
+    <span *ngIf="!(!!downloadToken)">Link will show here when token is generated</span>
+</p>
+
+<h3>Download via Javascript w/ Progress</h3>
+<p>
+    <button mat-stroked-button type="button" (click)="downloadWithToken()">Download With Progress</button>
+</p>
+<mat-progress-bar *ngIf="downloadProgress$ | async as download"
+		[mode]="download.state == 'PENDING' ? 'buffer' : 'determinate'" 
+        [value]="download.progress">
+</mat-progress-bar>

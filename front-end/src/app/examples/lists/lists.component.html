@@ -1,0 +1,24 @@
+<div *ngIf="view === 'basic'">
+  <h2>Basic List</h2>
+  <pre>mat-list</pre>
+  <mat-list role="list">
+    <mat-list-item role="listitem">Item 1</mat-list-item>
+    <mat-list-item role="listitem">Item 2</mat-list-item>
+    <mat-list-item role="listitem">Item 3</mat-list-item>
+  </mat-list>
+</div>
+
+<div *ngIf="view === 'selection'">
+  <h2>Selection List</h2>
+  <pre>mat-selection-list</pre>
+
+  <p>
+    Option selected: {{shoes.selectedOptions.selected[0]?.value}}
+  </p>
+
+  <mat-selection-list #shoes [multiple]="false" panelClass="mat-selection-panel">
+    <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+      {{shoe}}
+    </mat-list-option>
+  </mat-selection-list>
+</div>

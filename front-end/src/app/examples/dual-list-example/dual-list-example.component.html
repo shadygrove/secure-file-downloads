@@ -1,0 +1,75 @@
+<div>
+  <h2>Dual List FORM</h2>
+  <button mat-stroked-button (click)="resetForm()">Reset</button>
+  <br /><br />
+  <form [formGroup]="myFormGroup">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        placeholder="Ex. Gertrude"
+        formControlName="name"
+        required
+      />
+      <mat-error *ngIf="name?.errors?.required">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <mat-label>Preferred Shoes</mat-label>
+      <mat-error *ngIf="preferredShoeTypesCtrl?.errors?.required">
+        Preferred Shoe Type is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="preferredShoeTypesCtrl?.errors?.minlength">
+        You must select at least
+        {{ preferredShoeTypesCtrl?.errors?.minlength.requiredLength }} preferred
+        shoe types
+      </mat-error>
+      <mat-error *ngIf="preferredShoeTypesCtrl?.errors?.maxlength">
+        You have selected too many shoe types. No more than
+        {{ preferredShoeTypesCtrl?.errors?.maxlength.requiredLength }} allowed.
+      </mat-error>
+      <app-dual-list
+        [options]="dualListOptions"
+        formControlName="preferredShoeTypes"
+      ></app-dual-list>
+      <pre>{{ dualListOptionsSelected | json }}</pre>
+    </div>
+    <br />
+    <div>
+      <h3>Example of Basic mat-list</h3>
+      <mat-list>
+        <mat-list-item>One</mat-list-item>
+        <mat-list-item>Two</mat-list-item>
+        <mat-list-item>Three</mat-list-item>
+      </mat-list>
+    </div>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Regular Multi-select List</mat-label>
+      <mat-select formControlName="multiSelect" multiple>
+        <mat-option
+          *ngFor="let option of basicMultiSelectOptions"
+          [value]="option"
+        >
+          {{ option.text }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <pre>{{ basicMultiSelectSelected | json }}</pre>
+    <br />
+    <pre>{{ myFormGroup?.get("multiSelect")?.value | json }}</pre>
+    <h4>Form</h4>
+    <div>
+      valid: {{ myFormGroup.valid }}<br />
+      touched: {{ myFormGroup.touched }}<br />
+      dirty: {{ myFormGroup.dirty }}<br />
+      Name errors: <br />
+      <pre>{{ name?.errors | json }}</pre>
+      <pre>{{ preferredShoeTypesCtrl?.errors | json }}</pre>
+      Preferred Shoes Value:<br />
+      <pre>{{ preferredShoeTypesCtrl?.value | json }}</pre>
+    </div>
+  </form>
+</div>

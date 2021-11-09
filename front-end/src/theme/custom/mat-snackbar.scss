@@ -1,0 +1,67 @@
+@mixin tc-snackbar-color($config-or-theme) {
+  // Extract the color configuration in case a theme has been passed.
+  // This allows consumers to either pass a theme object or a color configuration.
+  $config: mat-get-color-config($config-or-theme);
+
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $success: map-get($config, success);
+
+  // Define any styles affected by the theme.
+
+  // The snackbar-panel class is set when launching the snackbar
+  .tc-snackbar-panel {
+    // These custom classes allow us to support different notification types
+    &.tc-snackbar-info {
+      // use default mat-snackbar for info
+      button {
+      }
+    }
+
+    &.tc-snackbar-success {
+      background: mat-color($success);
+      color: mat-contrast($success, darker-contrast);
+      button {
+        color: mat-contrast($success, lighter-contrast);
+      }
+    }
+
+    &.tc-snackbar-warn {
+      background: mat-color($warn);
+      color: mat-contrast($warn, lighter-contrast);
+      button {
+        color: mat-contrast($warn, lighter-contrast);
+      }
+    }
+  }
+}
+
+@mixin tc-snackbar-typography($config-or-theme) {
+  // Extract the typography configuration in case a theme has been passed.
+  // This allows consumers to either pass a theme object or a color configuration.
+  $config: mat-get-typography-config($config-or-theme);
+}
+
+@mixin tc-snackbar-theme($theme) {
+  // Extracts the color and typography configurations from the theme.
+  $color: mat-get-color-config($theme);
+  $typography: mat-get-typography-config($theme);
+
+  // Do not generate styles if configurations for individual theming
+  // systems have been explicitly set to `null`.
+  @if $color != null {
+    @include tc-snackbar-color($color);
+  }
+  @if $typography != null {
+    @include tc-snackbar-typography($typography);
+  }
+
+  /* All other styles */
+  .tc-snackbar-panel {
+    button {
+      text-transform: uppercase !important;
+    }
+  }
+}

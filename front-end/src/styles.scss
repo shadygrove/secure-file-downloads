@@ -1,0 +1,36 @@
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./theme/index.scss";
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  // padding: 30px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+
+.menu-wrapper {
+  margin-bottom: 30px;
+}
+
+.main-content {
+  margin: auto 60px;
+  margin-bottom: 100px;
+}
+
+a {
+  color: lightblue;
+}
+
+
+h1 {
+  border-bottom: 1px solid #555;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: 40px !important;
+}

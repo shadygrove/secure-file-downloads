@@ -1,0 +1,32 @@
+
+<p>Here are some files to work with</p>
+
+<ul>
+  <li>
+    <a href="https://www.gutenberg.org/files/996/996.zip"
+      >Don Quixote</a
+    >
+  </li>
+  <li>
+    <a href="https://www.gutenberg.org/files/18269/18269-h.zip"
+      >Pascal's Pensees</a
+    >
+  </li>
+  <li>
+    <a
+      href="https://www.gutenberg.org/ebooks/766.kindle.images?session_id=8ea8b5a24f62f3433c2e7ebba91d94a28204d978"
+      >David Copperfield (epub)</a
+    >
+  </li>
+</ul>
+
+<h2>Test API</h2>
+<p><button mat-stroked-button type="button" (click)="testAPI()">Test API</button></p>
+<div style="max-height: 400px; overflow: scroll;">
+  <pre>{{
+      downloadSvc.weather$ | async | json
+    }}</pre>
+</div>
+
+<h2>Notes</h2>
+<app-filedownload-notes></app-filedownload-notes>

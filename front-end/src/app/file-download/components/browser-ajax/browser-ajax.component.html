@@ -1,0 +1,39 @@
+<h1>Browser AJAX-based Solutions</h1>
+<h3>Anchor Tag Approach</h3>
+<pre>
+    &lt;a [href]="smallFileDownloadUrl" download="small-file-link.zip"&gt;Download Small File&lt;/a&gt;
+</pre>
+<p><a [href]="smallFileDownloadUrl" download="small-file-link.zip">Download Small File</a> (.zip)<br />
+<a [href]="largeFileDownloadUrl" download="large-file-link.zip">Download Small File</a> (.zip)</p>
+<p>
+    Or... using <code>target="_blank"</code>
+    <br />
+    <a [href]="smallFileDownloadUrl" target="_blank" rel="noopener noreferrer">Download Small File</a> (.zip)
+    <br />
+    <a [href]="largeFileDownloadUrl" target="_blank" rel="noopener noreferrer">Download Large File</a> (.zip)
+</p>
+
+<h3>Javascript Download</h3>
+<p>These methods load file data into the browser memory.</p>
+
+<h4>Manually Handle Blob Response</h4>
+<p>This creates an object URL in the HTML Dom and then generates an anchor tag with a download property.  See Controller code for eg.</p>
+<p><button mat-stroked-button type="button" (click)="download()">Download (Blob)</button></p>
+
+<h4>Using FileSaver.js</h4>
+<p>This method uses the FileSaver.js library to do the Blob handling and initiate the browser download.</p>
+<p>
+    <button mat-stroked-button type="button" (click)="downloadWithFileSaver()">Download (FileSaver.js)</button>
+</p>
+
+<h4>Download Progress Indication w/ FileSaver.js Storage</h4>
+<p>This method uses a special kind of HTTP request which will report progress during the download.  This still stores the Blob in the browser's memory.</p>
+<p>
+    <button mat-stroked-button type="button" (click)="downloadWithProgress()">Download With Progress</button>
+</p>
+<mat-progress-bar *ngIf="downloadProgress$ | async as download"
+		[mode]="download.state == 'PENDING' ? 'buffer' : 'determinate'" 
+        [value]="download.progress">
+</mat-progress-bar>
+
+

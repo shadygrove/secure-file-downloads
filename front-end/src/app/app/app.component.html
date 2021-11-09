@@ -1,0 +1,48 @@
+<mat-toolbar color="default" class="menu-wrapper">
+  <button mat-button routerLink="/home">Home</button>
+
+  <button mat-button [matMenuTriggerFor]="downloadsMenu">File Download</button>
+  <mat-menu #downloadsMenu="matMenu" yPosition="below">
+    <button mat-menu-item routerLink="/file-download/">Info/Research</button>
+    <button mat-menu-item routerLink="/file-download/browser">Browser</button>
+    <button mat-menu-item routerLink="/file-download/service-worker">Service Worker</button>
+    <button mat-menu-item routerLink="/file-download/server-token">Server: Nonce Token</button>
+    <button mat-menu-item routerLink="/file-download/angular-service-worker">Angular Service Worker</button>
+  </mat-menu>
+
+  <button mat-button routerLink="/notifications">Notifications</button>
+  <button mat-button routerLink="/dual-list-example">Dual List</button>
+
+  <button mat-button [matMenuTriggerFor]="aboveMenu">Lists</button>
+  <mat-menu #aboveMenu="matMenu" yPosition="below">
+    <button mat-menu-item routerLink="/lists/basic">Basic</button>
+    <button mat-menu-item routerLink="/lists/selection">Selection List</button>
+  </mat-menu>
+
+  <span class="menu-spacer"></span>
+  <span>{{ userName }}</span>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" 
+    *ngIf="isLoggedIn"
+    class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>account_circle</mat-icon> 
+  </button>
+  <mat-menu #userMenu="matMenu" yPosition="below">
+    <button mat-menu-item (click)="logout()">Log Out</button>
+  </mat-menu>
+</mat-toolbar>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<h3>Log Output</h3>
+<button mat-stroked-button color="accent" (click)="logs = []">
+  Clear Logs
+</button>
+<br /><br />
+<div style="max-height: 300px; overflow: auto">
+  <div *ngFor="let log of logs" style="padding-bottom: 15px">
+    {{ log.type.toUpperCase() }}: {{ log.message }}<br />
+    {{ log.data | json }}
+  </div>
+</div>

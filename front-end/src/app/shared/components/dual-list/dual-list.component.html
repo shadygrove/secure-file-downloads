@@ -1,0 +1,36 @@
+<div class="tc-dual-list-panel">
+  <div class="dual-list-items dual-list-unselected">
+    <mat-list #unselectedItems="cdkDropList" (cdkDropListDropped)="drop($event)" cdkDropList
+      [cdkDropListData]="unselected" [cdkDropListConnectedTo]="[selectedItems]">
+      <div mat-subheader>Unselected</div>
+      <mat-list-item *ngFor="let item of unselected" cdkDrag [disabled]="item.disabled">
+        <mat-icon mat-list-icon *ngIf="!item.disabled">drag_indicator</mat-icon>
+        <mat-icon mat-list-icon *ngIf="item.disabled"></mat-icon>
+        {{ item.text }}&nbsp;&nbsp;<span *ngIf="item.disabled" style="color: #aaa">(disabled)</span>
+        <div class="dual-list-placeholder" *cdkDragPlaceholder></div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="dual-list-items dual-list-selected">
+    <mat-list #selectedItems="cdkDropList" cdkDropList [cdkDropListData]="value" (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[unselectedItems]">
+      <div mat-subheader>Selected</div>
+      <mat-list-item *ngFor="let item of value" cdkDrag>
+        <mat-icon mat-list-icon *ngIf="!item.disabled">drag_indicator</mat-icon>
+        {{ item.text }}
+        <div class="dual-list-placeholder" *cdkDragPlaceholder></div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
+
+<div>
+  <p>This example is based on the Angular CDK <a href="https://material.angular.io/cdk/drag-drop/overview"
+      target="_blank">drag and drop examples</a>.</p>
+  <p>
+    <code>mat-list</code> and CDK drag/drop may cause
+    <a href="https://stackoverflow.com/questions/58277394/angular-mat-list-option-layout-changes-when-using-cdk-drag-and-drop"
+      target="_blank">layout
+      issues</a>
+  </p>
+</div>

@@ -1,0 +1,19 @@
+<div style="padding: 20px">
+  <h2>Login Status</h2>
+  <mat-card *ngIf="authError">
+    <p i18n>Could not log in. There were errors during authentication.</p>
+  </mat-card>
+
+  <div style="margin-top: 10px"></div>
+
+  <div>
+    <p *ngIf="isAuthenticated" i18n>You are logged in.</p>
+    <p *ngIf="!isAuthenticated" i18n>
+      You have been logged out. <button mat-raised-button (click)="login()">Login</button>
+    </p>
+  </div>
+
+  <mat-card *ngIf="!isAuthDoneLoading">
+    <p i18n>Checking authentication status...</p>
+  </mat-card>
+</div>

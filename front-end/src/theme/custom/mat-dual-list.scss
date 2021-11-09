@@ -1,0 +1,102 @@
+@mixin tc-dual-list-color($config-or-theme) {
+  // Extract the color configuration in case a theme has been passed.
+  // This allows consumers to either pass a theme object or a color configuration.
+  $config: mat-get-color-config($config-or-theme);
+
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $success: map-get($config, success);
+
+  // Define any styles affected by the theme.
+
+  // The dual-list-panel class is set when launching the snackbar
+  .tc-dual-list-panel {
+  }
+}
+
+@mixin tc-dual-list-typography($config-or-theme) {
+  // Extract the typography configuration in case a theme has been passed.
+  // This allows consumers to either pass a theme object or a color configuration.
+  $config: mat-typography-config($config-or-theme);
+}
+
+@mixin tc-dual-list-theme($theme) {
+  // Extracts the color and typography configurations from the theme.
+  $color: mat-get-color-config($theme);
+  $background: map-get($color, background);
+
+  $typography: mat-typography-config();
+
+  // Do not generate styles if configurations for individual theming
+  // systems have been explicitly set to `null`.
+  @if $color != null {
+    @include tc-dual-list-color($color);
+  }
+  @if $typography != null {
+    @include tc-dual-list-typography($typography);
+  }
+
+  body {
+    // These styles must be global because the drag action puts the
+    // preview element into the root body element, which takes it out of the context of .mat-list
+
+    .cdk-drag-preview {
+      .mat-list-item-content {
+        // In order to keep the dragged item consistent with .mat-list-item
+        // we have to copy some styles from .mat-list-item-conten
+        // https://github.com/angular/components/blob/53e98b14648b6f27c046febdd04b3104941614a2/src/material/list/list.scss
+        $side-padding: 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0 $side-padding;
+        position: relative;
+        height: inherit;
+        background: mat-color($background, selected-button);
+        border-radius: 4px; // specif to this dragged-item
+        font-size: mat-font-size($typography, subheading-2);
+
+        @include mat-elevation(10);
+      }
+    }
+
+    .cdk-drag-animating {
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  /* All other styles */
+  .tc-dual-list-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .dual-list-items {
+      // border: 1px solid orange;
+      .dual-list-selected {
+      }
+
+      .dual-list-unselected {
+      }
+    }
+
+    .dual-list-placeholder {
+      border: dotted 2px mat-color($background, selected-button);
+      min-height: 48px;
+      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    }
+
+    .mat-list {
+      .mat-list-item {
+        cursor: move;
+      }
+
+      &.cdk-drop-list-dragging {
+        .mat-list-item:not(.cdk-drag-placeholder) {
+          transition: transform 500ms cubic-bezier(0, 0, 0.2, 1);
+        }
+      }
+    }
+  }
+}
